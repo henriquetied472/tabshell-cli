@@ -1,4 +1,4 @@
-# TabShell: Um  clienye [***TabNews***](https://tabnews.com.br) para terminal
+# TabShell: Um  cliente [***TabNews***](https://tabnews.com.br) para terminal
 
 Mais informações no dia 10/06/2022
 
