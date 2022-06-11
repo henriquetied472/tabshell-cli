@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"time"
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/henriquetied472/tabshell-cli/api"
@@ -34,8 +35,7 @@ func Init(debugger, logger *log.Logger, dgb *bool) {
 		id := getIDFromTitle(*tc, sel)
 		body := getBodyFromID(*tc, id)
 
-		body = "# " + sel + "\n\n" + body
-
+		body = "# " + sel + "\n\n" + body + "\n\n---\n\n@" + getUserNameFromPubID(*tc, id) + "\t" + getPubTimeFromID(*tc, id).Format("02/01/2006 15:04")
 		cmd = exec.Command("clear")
 		cmd.Stdout = os.Stdout
 		cmd.Run()
@@ -80,4 +80,24 @@ func getIDFromTitle(tc api.TabContents, title string) string {
 	}
 
 	return ""
+}
+
+func getUserNameFromPubID(tc api.TabContents, id string) string {
+	for _, tr := range tc.Resp {
+		if tr.ID == id {
+			return tr.Username
+		}
+	}
+
+	return ""
+}
+
+func getPubTimeFromID(tc api.TabContents, id string) time.Time {
+	for _, tr := range tc.Resp {
+		if tr.ID == id {
+			return tr.PublishedAt
+		}
+	}
+
+	return time.Now()
 }
