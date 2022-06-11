@@ -30,7 +30,9 @@ type TabResponse struct {
 	ChildrenDeepCount int         `json:"children_deep_count"`
 }
 
-type TabContents []TabResponse
+type TabContents struct {
+	Resp []TabResponse
+}
 
 func readTCs(debugger *log.Logger, content []byte, dgb *bool) (*TabContents, string) {
 	var trs []TabResponse
@@ -43,10 +45,12 @@ func readTCs(debugger *log.Logger, content []byte, dgb *bool) (*TabContents, str
 		debugger.Printf(tcIdented.String())
 	}
 
-	tc := TabContents(trs)
+	tc := TabContents{trs}
 
 	return &tc, tcIdented.String()
 }
+
+var FPath string
 
 func Init(debugger, logger *log.Logger, dgb *bool) *TabContents {
 	res, _ := http.Get("https://tabnews.com.br/api/v1/contents")
@@ -54,7 +58,9 @@ func Init(debugger, logger *log.Logger, dgb *bool) *TabContents {
 	j, _ := ioutil.ReadAll(res.Body)
 	tc, idented := readTCs(debugger, j, dgb)
 
-	f, _ := os.Create("./data/" + fmt.Sprint(time.Now().UnixMicro()) + ".json")
+	FPath = "./data/" + fmt.Sprint(time.Now().UnixMicro()) + ".json"
+
+	f, _ := os.Create(FPath)
 	f.WriteString(idented)
 
 	return tc

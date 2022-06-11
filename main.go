@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/henriquetied472/tabshell-cli/api"
+	"github.com/henriquetied472/tabshell-cli/questions"
 )
 
 var debugger log.Logger
@@ -26,6 +26,6 @@ func main() {
 	logger.Printf("Tabshell Initialized!!")
 
 	defer logger.Printf("TabShell Finished!!")
-	
-	api.Init(&debugger, &logger, dgb)
+
+	questions.Init(&debugger, &logger, dgb)
 }
