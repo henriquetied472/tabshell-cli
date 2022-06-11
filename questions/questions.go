@@ -2,26 +2,46 @@ package questions
 
 import (
 	"log"
+	"os"
+	"os/exec"
 
-	"github.com/henriquetied472/tabshell-cli/api"
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/henriquetied472/tabshell-cli/api"
+	"github.com/henriquetied472/tabshell-cli/sanitizer"
 )
 
 func Init(debugger, logger *log.Logger, dgb *bool) {
-	tc := api.Init(debugger, logger, dgb)
-	allTitles := getAllTitles(*tc)
-	var sel string
+	for {
+		cmd := exec.Command("clear")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
 
-	qt := &survey.Select{
-		Message: "Bem vindo ao TabShell, qual postagem deseja ver?",
-		Options: allTitles,
-		Default: allTitles[len(allTitles) - 1],
+		tc := api.Init(debugger, logger, dgb)
+		allTitles := getAllTitles(*tc)
+		var sel string
+
+		qt := &survey.Select{
+			Message: "Bem vindo ao TabShell, qual postagem deseja ver?",
+			Options: allTitles,
+			Default: allTitles[0],
+		}
+
+		survey.AskOne(qt, &sel)
+
+		if *dgb { debugger.Printf(sel) }
+		logger.Printf("Selected: %v", sel)
+
+		id := getIDFromTitle(*tc, sel)
+		body := getBodyFromID(*tc, id)
+
+		body = "# " + sel + "\n\n" + body
+
+		cmd = exec.Command("clear")
+		cmd.Stdout = os.Stdout
+		cmd.Run()
+
+		sanitizer.Init(debugger, logger, dgb, body)
 	}
-
-	survey.AskOne(qt, &sel)
-
-	if *dgb { debugger.Printf(sel) }
-	logger.Printf("Selected: %v", sel)
 }
 
 func getBodyFromID(tc api.TabContents, id string) string {
