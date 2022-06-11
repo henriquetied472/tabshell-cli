@@ -3,6 +3,8 @@
 
 O TabShell é um *client* do [***TabNews***](https://tabnews.com.br) para terminal escrito em [***GoLang***](https://golang.org) usando dos pacotes [***Survey***](https://github.com/AlecAivazis/survey) e [***Go Term MarkDown***](https://github.com/MichaelMure/go-term-markdown)
 
+Para compilar para outra plataforma que não está na pasta build, clique [aqui](https://github.com/Henriquetied472/tabshell-cli/blob/master/BUILDING.md) para ver as instruções
+
 # Contribuições
 
 As contribuições de todos são muito bem vindas neste repositório
