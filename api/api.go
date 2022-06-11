@@ -58,9 +58,9 @@ func Init(debugger, logger *log.Logger, dgb *bool) *TabContents {
 	j, _ := ioutil.ReadAll(res.Body)
 	tc, idented := readTCs(debugger, j, dgb)
 
-	FPath = "./data/" + fmt.Sprint(time.Now().UnixMicro()) + ".json"
+	FPath = fmt.Sprint(time.Now().UnixMicro()) + ".json"
 
-	f, _ := os.Create(FPath)
+	f, _ := os.Create("./data", FPath)
 	f.WriteString(idented)
 
 	return tc
