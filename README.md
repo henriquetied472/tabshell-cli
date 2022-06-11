@@ -13,4 +13,4 @@ As contribuições de todos são muito bem vindas neste repositório
 
 ---
 
-Feito com :heart: no Brasil por Henrique Goulart
+Feito com :heart: no :brazil: por Henrique Goulart
