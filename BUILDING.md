@@ -12,7 +12,7 @@ Para compilar para outro sistema, você precisara ter instalado:
 Clone este repositório para sua máquina local e entre nele usando:
 
 ```shell
-git clone https://github/Henriquetied472/tabshell-cli
+git clone https://github.com/Henriquetied472/tabshell-cli.git
 cd tabshell-cli
 ```
 
